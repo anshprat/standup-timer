@@ -638,16 +638,10 @@ function showSummary() {
     
     summaryHTML += `
       <div class="standup-timer-summary-item ${isCurrent ? 'current' : ''} ${isOver ? 'over' : ''}">
-        <div class="standup-timer-summary-name">
-          ${participant} ${isCurrent ? '<span class="standup-timer-summary-badge">Current</span>' : ''}
-        </div>
-        <div class="standup-timer-summary-time">
-          ${timeTakenDisplay} / ${totalAllocationDisplay}
-        </div>
-        <div class="standup-timer-summary-progress">
-          <div class="standup-timer-summary-progress-bar" style="width: ${Math.min(100, percentage)}%"></div>
-        </div>
-        <div class="standup-timer-summary-percentage">${percentage}%</div>
+        <span class="standup-timer-summary-name">${participant}${isCurrent ? ' <span class="standup-timer-summary-badge">Current</span>' : ''}</span>
+        <span class="standup-timer-summary-time">${timeTakenDisplay} / ${totalAllocationDisplay}</span>
+        <span class="standup-timer-summary-progress"><span class="standup-timer-summary-progress-bar" style="width: ${Math.min(100, percentage)}%"></span></span>
+        <span class="standup-timer-summary-percentage">${percentage}%</span>
       </div>
     `;
   });
