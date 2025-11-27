@@ -5,59 +5,63 @@
   <style>
     body {
       width: 350px;
-      padding: 16px;
+      padding: 12px;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
     }
     h2 {
-      margin-top: 0;
-      font-size: 18px;
+      margin: 0 0 10px 0;
+      font-size: 16px;
       color: #333;
     }
     .form-group {
-      margin-bottom: 16px;
+      margin-bottom: 10px;
+    }
+    .form-group:last-of-type {
+      margin-bottom: 8px;
     }
     label {
       display: block;
-      margin-bottom: 6px;
-      font-size: 14px;
+      margin-bottom: 4px;
+      font-size: 13px;
       font-weight: 500;
       color: #555;
     }
     input, select {
       width: 100%;
-      padding: 8px;
+      padding: 6px;
       border: 1px solid #ddd;
       border-radius: 4px;
-      font-size: 14px;
+      font-size: 13px;
       box-sizing: border-box;
     }
     textarea {
       width: 100%;
-      padding: 8px;
+      padding: 6px;
       border: 1px solid #ddd;
       border-radius: 4px;
-      font-size: 14px;
-      min-height: 100px;
+      font-size: 13px;
+      min-height: 70px;
       resize: vertical;
       box-sizing: border-box;
       font-family: inherit;
     }
     .help-text {
-      font-size: 12px;
+      font-size: 11px;
       color: #666;
-      margin-top: 4px;
+      margin-top: 2px;
     }
     button {
       background: #5E6AD2;
       color: white;
       border: none;
-      padding: 10px 20px;
+      padding: 8px 16px;
       border-radius: 4px;
       cursor: pointer;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 500;
       width: 100%;
-      margin-top: 8px;
+      margin-top: 6px;
     }
     button:hover {
       background: #4d5ab8;
@@ -65,16 +69,17 @@
     .toggle-container {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
+      margin: 0;
     }
     .toggle-container input[type="checkbox"] {
       width: auto;
     }
     .status {
-      margin-top: 12px;
-      padding: 8px;
+      margin-top: 8px;
+      padding: 6px;
       border-radius: 4px;
-      font-size: 12px;
+      font-size: 11px;
       text-align: center;
     }
     .status.success {
@@ -93,13 +98,12 @@
   <div class="form-group">
     <label for="participants">Participants (one per line)</label>
     <textarea id="participants" placeholder="Alice&#10;Bob&#10;Charlie"></textarea>
-    <div class="help-text">Enter participant names, one per line</div>
   </div>
 
   <div class="form-group">
     <label for="totalTime">Total Time (minutes)</label>
     <input type="number" id="totalTime" min="1" value="15" />
-    <div class="help-text">Total time will be divided equally among participants</div>
+    <div class="help-text">Divided equally among participants</div>
   </div>
 
   <div class="form-group">
@@ -113,10 +117,10 @@
   <div class="form-group">
     <label for="hostUrl">Host URL</label>
     <input type="text" id="hostUrl" placeholder="linear.app" />
-    <div class="help-text">Enter the host/domain where timer should appear (e.g., linear.app, example.com)</div>
+    <div class="help-text">Domain where timer appears (e.g., linear.app)</div>
   </div>
 
-  <div class="form-group">
+  <div class="form-group" style="margin-bottom: 8px;">
     <div class="toggle-container">
       <input type="checkbox" id="showTimer" checked />
       <label for="showTimer" style="margin-bottom: 0;">Show timer on page</label>
@@ -124,7 +128,7 @@
   </div>
 
   <button id="saveBtn">Save Settings</button>
-  <button id="showTimerBtn" style="background: #28a745; margin-top: 8px;">Show Timer</button>
+  <button id="showTimerBtn" style="background: #28a745; margin-top: 6px;">Show Timer</button>
   <div id="status"></div>
 
   <script src="popup.js"></script>
