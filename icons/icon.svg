@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <!-- Background circle -->
+  <circle cx="64" cy="64" r="60" fill="#5E6AD2" stroke="#4d5ab8" stroke-width="2"/>
+  
+  <!-- Inner circle for depth -->
+  <circle cx="64" cy="64" r="52" fill="#6B7AE8" opacity="0.3"/>
+  
+  <!-- Clock face -->
+  <circle cx="64" cy="64" r="45" fill="#FFFFFF"/>
+  
+  <!-- Hour markers -->
+  <line x1="64" y1="24" x2="64" y2="30" stroke="#5E6AD2" stroke-width="3" stroke-linecap="round"/>
+  <line x1="64" y1="98" x2="64" y2="104" stroke="#5E6AD2" stroke-width="3" stroke-linecap="round"/>
+  <line x1="24" y1="64" x2="30" y2="64" stroke="#5E6AD2" stroke-width="3" stroke-linecap="round"/>
+  <line x1="98" y1="64" x2="104" y2="64" stroke="#5E6AD2" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Minute markers (smaller) -->
+  <line x1="64" y1="20" x2="64" y2="25" stroke="#5E6AD2" stroke-width="1.5" stroke-linecap="round" transform="rotate(30 64 64)"/>
+  <line x1="64" y1="20" x2="64" y2="25" stroke="#5E6AD2" stroke-width="1.5" stroke-linecap="round" transform="rotate(60 64 64)"/>
+  <line x1="64" y1="20" x2="64" y2="25" stroke="#5E6AD2" stroke-width="1.5" stroke-linecap="round" transform="rotate(120 64 64)"/>
+  <line x1="64" y1="20" x2="64" y2="25" stroke="#5E6AD2" stroke-width="1.5" stroke-linecap="round" transform="rotate(150 64 64)"/>
+  <line x1="64" y1="20" x2="64" y2="25" stroke="#5E6AD2" stroke-width="1.5" stroke-linecap="round" transform="rotate(210 64 64)"/>
+  <line x1="64" y1="20" x2="64" y2="25" stroke="#5E6AD2" stroke-width="1.5" stroke-linecap="round" transform="rotate(240 64 64)"/>
+  <line x1="64" y1="20" x2="64" y2="25" stroke="#5E6AD2" stroke-width="1.5" stroke-linecap="round" transform="rotate(300 64 64)"/>
+  <line x1="64" y1="20" x2="64" y2="25" stroke="#5E6AD2" stroke-width="1.5" stroke-linecap="round" transform="rotate(330 64 64)"/>
+  
+  <!-- Hour hand (pointing to 3 o'clock) -->
+  <line x1="64" y1="64" x2="80" y2="64" stroke="#5E6AD2" stroke-width="4" stroke-linecap="round"/>
+  
+  <!-- Minute hand (pointing to 12 o'clock) -->
+  <line x1="64" y1="64" x2="64" y2="40" stroke="#5E6AD2" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Center dot -->
+  <circle cx="64" cy="64" r="5" fill="#5E6AD2"/>
+  
+  <!-- Play/pause symbol overlay (representing timer control) -->
+  <g transform="translate(64, 90)">
+    <circle cx="0" cy="0" r="12" fill="#5E6AD2" opacity="0.9"/>
+    <polygon points="-4,-4 -4,4 4,0" fill="#FFFFFF"/>
+  </g>
+</svg>
+
