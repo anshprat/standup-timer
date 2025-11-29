@@ -385,14 +385,18 @@ function togglePause() {
     // Calculate pause duration and adjust start times
     if (pauseStartTime) {
       const pauseDuration = Math.floor((Date.now() - pauseStartTime) / 1000);
-      startTime = Date.now() - (pausedElapsedTime + pauseDuration) * 1000;
+      startTime = Date.now() - pausedElapsedTime * 1000;
       pauseStartTime = null;
+      // Reset paused elapsed time since startTime is now adjusted
+      pausedElapsedTime = 0;
     }
     
     if (totalPauseStartTime) {
       const totalPauseDuration = Math.floor((Date.now() - totalPauseStartTime) / 1000);
-      totalStartTime = Date.now() - (pausedTotalElapsedTime + totalPauseDuration) * 1000;
+      totalStartTime = Date.now() - pausedTotalElapsedTime * 1000;
       totalPauseStartTime = null;
+      // Reset paused total elapsed time since totalStartTime is now adjusted
+      pausedTotalElapsedTime = 0;
     }
     
     // Resume participant time tracking

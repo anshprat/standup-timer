@@ -72,3 +72,5 @@ echo -e "  File: ${GREEN}$ZIP_NAME${NC}"
 echo -e "  Size: ${GREEN}$ZIP_SIZE${NC}"
 echo -e "\n${YELLOW}Ready for Chrome Web Store upload!${NC}"
 
+
+
