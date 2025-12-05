@@ -444,41 +444,45 @@ function saveCurrentParticipantTime() {
 
 function previousParticipant() {
   if (settings.participants.length === 0) return;
-  
+
   // Save current participant's time before switching
   saveCurrentParticipantTime();
-  
+
   // Go back to previous participant (with wraparound)
   currentParticipantIndex = (currentParticipantIndex - 1 + settings.participants.length) % settings.participants.length;
   elapsedTime = 0;
   pausedElapsedTime = 0;
   startTime = Date.now();
-  isPaused = false;
-  
-  // Start tracking time for the new participant
+  // Preserve pause state - don't force it to false
+
+  // Start tracking time for the new participant only if not paused
   const newParticipant = settings.participants[currentParticipantIndex];
-  participantCurrentStartTime[newParticipant] = Date.now();
-  
+  if (!isPaused) {
+    participantCurrentStartTime[newParticipant] = Date.now();
+  }
+
   updateDisplay();
   updateStartPauseButton();
 }
 
 function nextParticipant() {
   if (settings.participants.length === 0) return;
-  
+
   // Save current participant's time before switching
   saveCurrentParticipantTime();
-  
+
   currentParticipantIndex = (currentParticipantIndex + 1) % settings.participants.length;
   elapsedTime = 0;
   pausedElapsedTime = 0;
   startTime = Date.now();
-  isPaused = false;
-  
-  // Start tracking time for the new participant
+  // Preserve pause state - don't force it to false
+
+  // Start tracking time for the new participant only if not paused
   const newParticipant = settings.participants[currentParticipantIndex];
-  participantCurrentStartTime[newParticipant] = Date.now();
-  
+  if (!isPaused) {
+    participantCurrentStartTime[newParticipant] = Date.now();
+  }
+
   updateDisplay();
   updateStartPauseButton();
 }
@@ -555,8 +559,18 @@ function updateDisplay() {
   document.getElementById('standup-timer-time').textContent = displayTime;
   document.getElementById('standup-timer-progress').style.width = `${progress}%`;
 
-  // Update total time
-  const totalDisplay = formatTime(totalElapsedTime);
+  // Update total time - calculate as sum of all participant times
+  let totalTime = 0;
+  settings.participants.forEach((participant, index) => {
+    let participantTime = participantTimeTracker[participant] || 0;
+    // Add current turn time if this is the current participant and not paused
+    if (index === currentParticipantIndex && participantCurrentStartTime[participant] && !isPaused) {
+      const currentTurnTime = Math.floor((Date.now() - participantCurrentStartTime[participant]) / 1000);
+      participantTime = participantTime + currentTurnTime;
+    }
+    totalTime += participantTime;
+  });
+  const totalDisplay = formatTime(Math.floor(totalTime));
   document.getElementById('standup-timer-total').textContent = totalDisplay;
 
   // Update participant time info: "Time taken / Total allocation"
@@ -596,23 +610,33 @@ function updateDisplay() {
 
 function updateMinimizedDisplay() {
   if (!timerContainer || !isMinimized) return;
-  
+
   const participantName = settings.participants[currentParticipantIndex] || '-';
   document.getElementById('standup-timer-min-name').textContent = participantName;
-  
+
   const timePerParticipant = Math.floor((settings.totalTime * 60) / settings.participants.length);
   let displayTime;
-  
+
   if (settings.timerMode === 'countdown') {
     const remaining = Math.max(0, timePerParticipant - elapsedTime);
     displayTime = formatTime(Math.floor(remaining));
   } else {
     displayTime = formatTime(elapsedTime);
   }
-  
+
   document.getElementById('standup-timer-min-time').textContent = displayTime;
-  
-  const totalDisplay = formatTime(totalElapsedTime);
+
+  // Calculate total time as sum of all participant times
+  let totalTime = 0;
+  settings.participants.forEach((participant, index) => {
+    let participantTime = participantTimeTracker[participant] || 0;
+    if (index === currentParticipantIndex && participantCurrentStartTime[participant] && !isPaused) {
+      const currentTurnTime = Math.floor((Date.now() - participantCurrentStartTime[participant]) / 1000);
+      participantTime = participantTime + currentTurnTime;
+    }
+    totalTime += participantTime;
+  });
+  const totalDisplay = formatTime(Math.floor(totalTime));
   document.getElementById('standup-timer-min-total').textContent = `Total: ${totalDisplay}`;
 }
 
