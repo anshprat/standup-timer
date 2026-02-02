@@ -1,0 +1,65 @@
+name: Update Homebrew Formula
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to update (e.g., 1.0.0)'
+        required: true
+
+jobs:
+  update-formula:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Get version
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" = "release" ]; then
+            VERSION="${{ github.event.release.tag_name }}"
+            VERSION="${VERSION#v}"
+          else
+            VERSION="${{ github.event.inputs.version }}"
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Download and calculate SHA256
+        id: sha
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          URL="https://github.com/anshprat/standup-timer/releases/download/v${VERSION}/Standup%20Timer-${VERSION}-arm64-mac.zip"
+
+          echo "Downloading from: $URL"
+          curl -L -o app.zip "$URL"
+
+          SHA256=$(shasum -a 256 app.zip | cut -d' ' -f1)
+          echo "sha256=$SHA256" >> $GITHUB_OUTPUT
+          echo "SHA256: $SHA256"
+
+      - name: Update Homebrew formula
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          SHA256="${{ steps.sha.outputs.sha256 }}"
+
+          sed -i "s/version \".*\"/version \"$VERSION\"/" homebrew/Casks/standup-timer.rb
+          sed -i "s/sha256 \".*\"/sha256 \"$SHA256\"/" homebrew/Casks/standup-timer.rb
+
+          cat homebrew/Casks/standup-timer.rb
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add homebrew/Casks/standup-timer.rb
+          git commit -m "chore: update homebrew formula to v${{ steps.version.outputs.version }}" || echo "No changes to commit"
+          git push

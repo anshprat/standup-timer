@@ -1,0 +1,27 @@
+{
+  "name": "standup-timer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Standup timer monorepo with Chrome extension and Electron overlay app",
+  "scripts": {
+    "build": "pnpm -r build",
+    "build:core": "pnpm --filter @standup-timer/core build",
+    "build:chrome": "pnpm --filter @standup-timer/chrome-extension build",
+    "build:electron": "pnpm --filter @standup-timer/electron-app build",
+    "dev:chrome": "pnpm --filter @standup-timer/chrome-extension dev",
+    "dev:electron": "pnpm --filter @standup-timer/electron-app dev",
+    "package:electron": "pnpm --filter @standup-timer/electron-app package",
+    "clean": "pnpm -r clean"
+  },
+  "keywords": [
+    "standup",
+    "timer",
+    "chrome-extension",
+    "electron"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

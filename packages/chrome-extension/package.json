@@ -1,0 +1,21 @@
+{
+  "name": "@standup-timer/chrome-extension",
+  "version": "1.0.0",
+  "description": "Chrome extension for standup timer",
+  "private": true,
+  "scripts": {
+    "build": "esbuild src/content.ts src/popup.ts --bundle --outdir=dist --format=iife --target=chrome100",
+    "dev": "esbuild src/content.ts src/popup.ts --bundle --outdir=dist --format=iife --target=chrome100 --watch",
+    "postbuild": "cp manifest.json dist/ && cp popup.html dist/ && cp styles.css dist/ && cp -r icons dist/",
+    "postdev": "cp manifest.json dist/ && cp popup.html dist/ && cp styles.css dist/ && cp -r icons dist/",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@standup-timer/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.0.260",
+    "esbuild": "^0.20.0",
+    "typescript": "^5.3.0"
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "name": "standup-timer",
+  "version": "1.0.0",
+  "description": "Electron overlay app for standup timer",
+  "author": "anshprat",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anshprat/standup-timer.git"
+  },
+  "private": true,
+  "main": "dist/main/index.js",
+  "scripts": {
+    "build": "npm run build:main && npm run build:preload && npm run build:renderer",
+    "build:main": "esbuild src/main/index.ts --bundle --platform=node --external:electron --outfile=dist/main/index.js",
+    "build:preload": "esbuild src/preload/preload.ts --bundle --platform=node --external:electron --outfile=dist/preload/preload.js",
+    "build:renderer": "esbuild src/renderer/index.ts --bundle --outfile=dist/renderer/index.js && cp src/renderer/index.html dist/renderer/ && cp styles/overlay.css dist/renderer/",
+    "dev": "npm run build && electron .",
+    "start": "electron .",
+    "package": "npm run build && electron-builder --mac",
+    "package:dmg": "npm run build && electron-builder --mac dmg",
+    "package:zip": "npm run build && electron-builder --mac zip",
+    "clean": "rm -rf dist out"
+  },
+  "dependencies": {
+    "electron-store": "^8.1.0"
+  },
+  "devDependencies": {
+    "@standup-timer/core": "workspace:*",
+    "electron": "^28.0.0",
+    "electron-builder": "^24.9.0",
+    "esbuild": "^0.20.0",
+    "typescript": "^5.3.0"
+  },
+  "build": {
+    "appId": "com.standup-timer.app",
+    "productName": "Standup Timer",
+    "directories": {
+      "output": "out"
+    },
+    "mac": {
+      "category": "public.app-category.productivity",
+      "icon": "resources/icons/icon512.png",
+      "target": [
+        "dmg",
+        "zip"
+      ]
+    },
+    "dmg": {
+      "title": "Standup Timer",
+      "contents": [
+        { "x": 130, "y": 220 },
+        { "x": 410, "y": 220, "type": "link", "path": "/Applications" }
+      ]
+    },
+    "files": [
+      "dist/**/*",
+      "package.json"
+    ],
+    "extraMetadata": {
+      "main": "dist/main/index.js"
+    },
+    "publish": null
+  }
+}

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'">
+  <title>Standup Timer</title>
+  <link rel="stylesheet" href="overlay.css">
+</head>
+<body>
+  <div id="timer-container" class="timer-container">
+    <!-- Header -->
+    <div id="timer-header" class="timer-header">
+      <div class="timer-header-content">
+        <span class="timer-title">Standup Timer</span>
+        <span id="timer-minimized-info" class="timer-minimized-info" style="display: none;">
+          <span id="timer-min-name">-</span> |
+          <span id="timer-min-time">00:00</span> |
+          <span id="timer-min-total">Total: 00:00</span>
+        </span>
+      </div>
+      <div class="timer-header-actions">
+        <button id="timer-settings" class="timer-header-btn" title="Settings">⚙</button>
+        <button id="timer-minimize" class="timer-header-btn" title="Minimize">−</button>
+        <button id="timer-close" class="timer-header-btn timer-close" title="Close">×</button>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div id="timer-content" class="timer-content">
+      <!-- Total Time -->
+      <div class="timer-total-time">
+        <span class="timer-label">Total Time:</span>
+        <span id="timer-total" class="timer-total">00:00</span>
+      </div>
+
+      <!-- Current Participant -->
+      <div class="timer-participant">
+        <span class="timer-label">Current:</span>
+        <span id="timer-name" class="timer-name">-</span>
+        <span id="timer-time-info" class="timer-time-info"></span>
+      </div>
+
+      <!-- Time Display -->
+      <div id="timer-time" class="timer-time">00:00</div>
+
+      <!-- Progress Bar -->
+      <div class="timer-progress">
+        <div id="timer-progress" class="timer-progress-bar"></div>
+      </div>
+
+      <!-- Navigation Controls -->
+      <div class="timer-controls">
+        <button id="timer-back" class="timer-btn">Back</button>
+        <button id="timer-next" class="timer-btn">Next</button>
+      </div>
+
+      <!-- Icon Controls -->
+      <div class="timer-controls-icon">
+        <button id="timer-pause" class="timer-icon-btn" title="Start/Pause">▶</button>
+        <button id="timer-reset-user" class="timer-icon-btn" title="Reset Current User">↻</button>
+        <button id="timer-reset-all" class="timer-icon-btn" title="Reset Standup">⟲</button>
+      </div>
+
+      <!-- Summary Button -->
+      <div class="timer-controls">
+        <button id="timer-summary" class="timer-btn timer-btn-secondary">Summary</button>
+      </div>
+
+      <!-- Info -->
+      <div class="timer-info">
+        <span id="timer-info">Participant 1 of 0</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings Panel -->
+  <div id="settings-panel" class="settings-panel" style="display: none;">
+    <div class="settings-header">
+      <h3>Settings</h3>
+    </div>
+    <div class="settings-body">
+      <div class="form-group">
+        <label for="settings-participants">Participants (one per line)</label>
+        <textarea id="settings-participants" placeholder="Alice&#10;Bob&#10;Charlie"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="settings-totalTime">Total Time (minutes)</label>
+        <input type="number" id="settings-totalTime" min="1" value="15" />
+      </div>
+      <div class="form-group">
+        <label for="settings-timerMode">Timer Mode</label>
+        <select id="settings-timerMode">
+          <option value="countdown">Countdown</option>
+          <option value="countup">Count Up</option>
+        </select>
+      </div>
+      <div class="settings-actions">
+        <button id="settings-cancel" class="timer-btn timer-btn-secondary">Cancel</button>
+        <button id="settings-save" class="timer-btn">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Summary Modal -->
+  <div id="summary-modal" class="summary-modal" style="display: none;">
+    <div class="summary-content">
+      <div class="summary-header">
+        <h3>Standup Report Card</h3>
+        <button id="summary-close" class="summary-close">×</button>
+      </div>
+      <div id="summary-body" class="summary-body">
+        <!-- Summary content will be generated here -->
+      </div>
+    </div>
+  </div>
+
+  <script src="index.js"></script>
+</body>
+</html>
