@@ -1,6 +1,6 @@
 {
   "name": "@standup-timer/core",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Core timer logic for standup timer applications",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

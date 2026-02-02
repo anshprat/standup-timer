@@ -1,6 +1,6 @@
 {
   "name": "standup-timer",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Electron overlay app for standup timer",
   "author": "anshprat",
   "repository": {
