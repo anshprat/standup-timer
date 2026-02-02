@@ -37,7 +37,7 @@ jobs:
         id: sha
         run: |
           VERSION="${{ steps.version.outputs.version }}"
-          URL="https://github.com/anshprat/standup-timer/releases/download/v${VERSION}/Standup%20Timer-${VERSION}-arm64-mac.zip"
+          URL="https://github.com/anshprat/standup-timer/releases/download/v${VERSION}/Standup.Timer-${VERSION}-arm64-mac.zip"
 
           echo "Downloading from: $URL"
           curl -L -o app.zip "$URL"
